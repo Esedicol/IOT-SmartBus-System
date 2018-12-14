@@ -149,13 +149,16 @@ def main():
 
 	print("\n <---------  BUS CLOSED ---------> ")
 
-	
+	#delay
 	comapare(foundAddr)
 	for x in range(0,11):
 		time.sleep(1)
 
+	#using count seat method
 	countemptySeat(foundAddr)
 
+
+#count the remaining empty seats on the bus
 def countemptySeat(foundAddr):
 	os.system('clear')
 	print ('''
@@ -163,16 +166,24 @@ def countemptySeat(foundAddr):
 			Number of Available Seats
 		============================================
 		  ''')
-	
+
+	#the number of people on the is the length of found devices
 	numberOfPeople = len(foundAddr)
 	
+	#accesing our seats DB
 	for i in max.all():
+		#assignning a varible to the last number of seats in the DB
 		count = i['seats']
+
+		#count the empty seats by subtracting the count in DB vs the number of devices found
 		x = count - numberOfPeople
 		print("\t\tNumber of Available seats in the Bus : [", x, "]\n\n\n\n\n\n\n")
+		#empty the DB
 		max.purge()
+		#add the new number of seats
 		max.insert({'seats' : x})
 
+#running main method
 main()
 
 
